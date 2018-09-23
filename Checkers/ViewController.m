@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "CHECKCustomImageView.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet CHECKCustomImageView *imageView;
 
 @end
 
@@ -17,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self.imageView addFigure];
 }
 
 

@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEC94DCE2157B369008D3607 /* CHECKCustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */; };
 		CEE62AE72157AE3C009A228B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AE62157AE3C009A228B /* AppDelegate.m */; };
 		CEE62AEA2157AE3C009A228B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AE92157AE3C009A228B /* ViewController.m */; };
 		CEE62AED2157AE3C009A228B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE62AEB2157AE3C009A228B /* Main.storyboard */; };
 		CEE62AEF2157AE42009A228B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE62AEE2157AE42009A228B /* Assets.xcassets */; };
-		CEE62AF22157AE42009A228B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE62AF02157AE42009A228B /* LaunchScreen.storyboard */; };
 		CEE62AF52157AE42009A228B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AF42157AE42009A228B /* main.m */; };
 		CEE62AFF2157AE43009A228B /* CheckersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AFE2157AE43009A228B /* CheckersTests.m */; };
 		CEE62B0A2157AE43009A228B /* CheckersUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62B092157AE43009A228B /* CheckersUITests.m */; };
@@ -35,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CEC94DCC2157B369008D3607 /* CHECKCustomImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHECKCustomImageView.h; sourceTree = "<group>"; };
+		CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHECKCustomImageView.m; sourceTree = "<group>"; };
 		CEE62AE22157AE3C009A228B /* Checkers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE62AE52157AE3C009A228B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEE62AE62157AE3C009A228B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -42,7 +44,6 @@
 		CEE62AE92157AE3C009A228B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CEE62AEC2157AE3C009A228B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEE62AEE2157AE42009A228B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CEE62AF12157AE42009A228B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEE62AF32157AE42009A228B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEE62AF42157AE42009A228B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEE62AFA2157AE43009A228B /* CheckersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,8 +107,9 @@
 				CEE62AE82157AE3C009A228B /* ViewController.h */,
 				CEE62AE92157AE3C009A228B /* ViewController.m */,
 				CEE62AEB2157AE3C009A228B /* Main.storyboard */,
+				CEC94DCC2157B369008D3607 /* CHECKCustomImageView.h */,
+				CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */,
 				CEE62AEE2157AE42009A228B /* Assets.xcassets */,
-				CEE62AF02157AE42009A228B /* LaunchScreen.storyboard */,
 				CEE62AF32157AE42009A228B /* Info.plist */,
 				CEE62AF42157AE42009A228B /* main.m */,
 			);
@@ -235,7 +237,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEE62AF22157AE42009A228B /* LaunchScreen.storyboard in Resources */,
 				CEE62AEF2157AE42009A228B /* Assets.xcassets in Resources */,
 				CEE62AED2157AE3C009A228B /* Main.storyboard in Resources */,
 			);
@@ -262,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC94DCE2157B369008D3607 /* CHECKCustomImageView.m in Sources */,
 				CEE62AEA2157AE3C009A228B /* ViewController.m in Sources */,
 				CEE62AF52157AE42009A228B /* main.m in Sources */,
 				CEE62AE72157AE3C009A228B /* AppDelegate.m in Sources */,
@@ -306,14 +308,6 @@
 				CEE62AEC2157AE3C009A228B /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CEE62AF02157AE42009A228B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEE62AF12157AE42009A228B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -436,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8BQ894223A;
 				INFOPLIST_FILE = Checkers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8BQ894223A;
 				INFOPLIST_FILE = Checkers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
