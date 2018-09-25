@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,33 +14,66 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkerboard" translatesAutoresizingMaskIntoConstraints="NO" id="9IM-hC-Njz" customClass="CHECKCustomImageView">
-                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ipY-P4-fJo">
+                                <rect key="frame" x="0.0" y="124" width="320" height="320"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="9IM-hC-Njz" secondAttribute="height" multiplier="1:1" id="Bb8-wM-5fm"/>
+                                    <constraint firstAttribute="width" secondItem="ipY-P4-fJo" secondAttribute="height" multiplier="1:1" id="ktD-Nq-yAl"/>
                                 </constraints>
-                            </imageView>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="d6E-QG-ASe">
+                                    <size key="itemSize" width="40" height="40"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="wO2-Sy-IWE">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsN-fx-CUa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="tsN-fx-CUa" secondAttribute="height" multiplier="1:1" id="nHA-4f-Sz7"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="tsN-fx-CUa" secondAttribute="bottom" id="0h0-RT-Wis"/>
+                                            <constraint firstItem="tsN-fx-CUa" firstAttribute="leading" secondItem="wO2-Sy-IWE" secondAttribute="leading" id="T1c-oa-BTZ"/>
+                                            <constraint firstItem="tsN-fx-CUa" firstAttribute="top" secondItem="wO2-Sy-IWE" secondAttribute="top" id="bnb-79-0ut"/>
+                                            <constraint firstAttribute="trailing" secondItem="tsN-fx-CUa" secondAttribute="trailing" id="o34-5W-p1I"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="u2D-q0-Oj1"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ZC4-k6-2XR"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9IM-hC-Njz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CiF-XZ-vHy"/>
-                            <constraint firstItem="9IM-hC-Njz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dd1-iH-vo7"/>
-                            <constraint firstItem="9IM-hC-Njz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="nfh-P5-ET1"/>
+                            <constraint firstItem="ipY-P4-fJo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cHc-Wd-7JA"/>
+                            <constraint firstItem="ipY-P4-fJo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gGq-0Z-6gt"/>
+                            <constraint firstItem="ipY-P4-fJo" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="xuT-2C-o9B"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="9IM-hC-Njz" id="rMi-Vz-Mga"/>
+                        <outlet property="collectionView" destination="ipY-P4-fJo" id="smj-sc-n6j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
-    <resources>
-        <image name="checkerboard" width="605" height="605"/>
-    </resources>
 </document>

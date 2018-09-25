@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CEC94DCE2157B369008D3607 /* CHECKCustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */; };
 		CEE62AE72157AE3C009A228B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AE62157AE3C009A228B /* AppDelegate.m */; };
 		CEE62AEA2157AE3C009A228B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE62AE92157AE3C009A228B /* ViewController.m */; };
 		CEE62AED2157AE3C009A228B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE62AEB2157AE3C009A228B /* Main.storyboard */; };
@@ -35,8 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CEC94DCC2157B369008D3607 /* CHECKCustomImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHECKCustomImageView.h; sourceTree = "<group>"; };
-		CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHECKCustomImageView.m; sourceTree = "<group>"; };
 		CEE62AE22157AE3C009A228B /* Checkers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE62AE52157AE3C009A228B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEE62AE62157AE3C009A228B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -107,8 +104,6 @@
 				CEE62AE82157AE3C009A228B /* ViewController.h */,
 				CEE62AE92157AE3C009A228B /* ViewController.m */,
 				CEE62AEB2157AE3C009A228B /* Main.storyboard */,
-				CEC94DCC2157B369008D3607 /* CHECKCustomImageView.h */,
-				CEC94DCD2157B369008D3607 /* CHECKCustomImageView.m */,
 				CEE62AEE2157AE42009A228B /* Assets.xcassets */,
 				CEE62AF32157AE42009A228B /* Info.plist */,
 				CEE62AF42157AE42009A228B /* main.m */,
@@ -263,7 +258,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEC94DCE2157B369008D3607 /* CHECKCustomImageView.m in Sources */,
 				CEE62AEA2157AE3C009A228B /* ViewController.m in Sources */,
 				CEE62AF52157AE42009A228B /* main.m in Sources */,
 				CEE62AE72157AE3C009A228B /* AppDelegate.m in Sources */,
