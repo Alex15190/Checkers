@@ -60,7 +60,7 @@
 {
     for(int i = 0;i < 8*8; i++)
     {
-        ALEXCustomView *gameView = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] viewWithTag:2];
+        ALEXCustomView *gameView = [self gameViewWithIndex:i];
         [gameView clear];
     }
 }
@@ -69,14 +69,28 @@
 {
     [self clearGame];
     for(int i = 0; i < 4*3*2;i++) {
-        ALEXCustomView *gameView = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] viewWithTag:2];
+        ALEXCustomView *gameView = [self gameViewWithIndex:i];
         if(CGColorEqualToColor(gameView.backgroundColor.CGColor, [UIColor colorWithRed:105.0/255 green:64.0/255 blue:11.0/255 alpha:1].CGColor))
         {
             [gameView spawnBlackCheck];
-            ALEXCustomView *gameView2 = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(8*8 - i - 1) inSection:0]] viewWithTag:2];
+            ALEXCustomView *gameView2 = [self gameViewWithIndex:(8*8 - 1 - i)];
             [gameView2 spawnRedCheck];
         }
     }
+    [self rotateCollectionView];
+}
+
+-(void)rotateCollectionView
+{
+    [UIView animateWithDuration:1.5 animations:^{
+        self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+    }];
+}
+
+
+-(ALEXCustomView *)gameViewWithIndex:(NSInteger)index
+{
+    return [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]] viewWithTag:2];
 }
 
 @end
