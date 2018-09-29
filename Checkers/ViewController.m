@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ALEXCustomView.h"
 
 @interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -23,6 +24,12 @@
     self.arrayOfColors = @[@0,@1,@0,@1,@0,@1,@0,@1,@1,@0,@1,@0,@1,@0,@1,@0];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self startGame];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -36,14 +43,40 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    UIView *gameView = [cell viewWithTag:2];
+    ALEXCustomView *gameView = [cell viewWithTag:2];
     if ([[self.arrayOfColors objectAtIndex:(indexPath.row % 16)] integerValue] == 1)
     {
-        gameView.backgroundColor = [UIColor blackColor];
+        gameView.backgroundColor = [UIColor colorWithRed:105.0/255 green:64.0/255 blue:11.0/255 alpha:1];
     }
     else
+    {
         gameView.backgroundColor = [UIColor yellowColor];
+    }
     return cell;
+}
+
+
+-(void)clearGame
+{
+    for(int i = 0;i < 8*8; i++)
+    {
+        ALEXCustomView *gameView = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] viewWithTag:2];
+        [gameView clear];
+    }
+}
+
+-(void)startGame
+{
+    [self clearGame];
+    for(int i = 0; i < 4*3*2;i++) {
+        ALEXCustomView *gameView = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] viewWithTag:2];
+        if(CGColorEqualToColor(gameView.backgroundColor.CGColor, [UIColor colorWithRed:105.0/255 green:64.0/255 blue:11.0/255 alpha:1].CGColor))
+        {
+            [gameView spawnBlackCheck];
+            ALEXCustomView *gameView2 = [[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:(8*8 - i - 1) inSection:0]] viewWithTag:2];
+            [gameView2 spawnRedCheck];
+        }
+    }
 }
 
 @end
