@@ -78,8 +78,13 @@
 
 -(void)rotateView
 {
+    CGAffineTransform t = CGAffineTransformMakeRotation(M_PI);
+    CGAffineTransform t2 = CGAffineTransformMakeRotation(0);
     [UIView animateWithDuration:1.5 animations:^{
-        [self viewWithTag:3].transform = CGAffineTransformMakeRotation(M_PI);
+        if (self.isUpsideDown)
+            [self viewWithTag:3].transform = t2;
+        else
+            [self viewWithTag:3].transform = t;
     }];
     if(self.isUpsideDown)
         self.isUpsideDown = NO;

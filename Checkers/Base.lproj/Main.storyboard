@@ -66,7 +66,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wl9-IZ-MfF"/>
+                                    <action selector="clearAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ig2-jG-y3k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vss-zf-zWK">
@@ -76,7 +76,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="rotateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITp-U0-tZ5"/>
+                                    <action selector="rotateAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hIH-UW-OkV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -94,6 +94,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="ipY-P4-fJo" id="smj-sc-n6j"/>
+                        <outlet property="rotateButton" destination="vss-zf-zWK" id="ddt-nN-Goq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

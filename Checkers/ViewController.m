@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *arrayOfColors;
+@property (nonatomic) BOOL isRotated;
+@property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @end
 
@@ -30,11 +32,12 @@
     [self startGame];
 }
 
-- (IBAction)clearButton:(UIButton *)sender {
+- (IBAction)clearAction:(UIButton *)sender {
     [self clearGame];
 }
 
-- (IBAction)rotateButton:(UIButton *)sender {
+- (IBAction)rotateAction:(UIButton *)sender {
+    self.rotateButton.userInteractionEnabled = NO;
     [self rotateCollectionView];
 }
 
@@ -103,13 +106,24 @@
 
 -(void)rotateCollectionView
 {
+    CGAffineTransform t = CGAffineTransformMakeRotation(M_PI);
+    CGAffineTransform t2 = CGAffineTransformMakeRotation(0);
     [UIView animateWithDuration:1.5 animations:^{
-        self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+        if(self.isRotated)
+            self.collectionView.transform = t2;
+        else
+            self.collectionView.transform = t;
         for (int i = 0; i < 8*8; i++)
         {
             [self rotateViewAtIndex:i];
         }
+    } completion:^(BOOL finished) {
+        self.rotateButton.userInteractionEnabled = YES;
     }];
+    if (self.isRotated)
+        self.isRotated = NO;
+    else
+        self.isRotated = YES;
 }
 
 -(void)rotateViewAtIndex:(NSInteger)index
