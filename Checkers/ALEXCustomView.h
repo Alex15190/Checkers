@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ALEXCustomView : UIView
 
 @property (nonatomic) GameViewState state;
+@property (nonatomic) BOOL isUpsideDown;
 
 -(void)spawnRedCheck;
 -(void)spawnRedKingCheck;
@@ -21,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)spawnBlackKingCheck;
 -(void)showAsHighlighted;
 -(void)removeHighlighted;
+-(void)rotateView;
 -(void)clear;
 
 @end

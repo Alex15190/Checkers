@@ -30,6 +30,16 @@
     [self startGame];
 }
 
+- (IBAction)clearButton:(UIButton *)sender {
+    [self clearGame];
+}
+
+- (IBAction)rotateButton:(UIButton *)sender {
+    [self rotateCollectionView];
+}
+
+
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -95,7 +105,18 @@
 {
     [UIView animateWithDuration:1.5 animations:^{
         self.collectionView.transform = CGAffineTransformMakeRotation(M_PI);
+        for (int i = 0; i < 8*8; i++)
+        {
+            [self rotateViewAtIndex:i];
+        }
     }];
+}
+
+-(void)rotateViewAtIndex:(NSInteger)index
+{
+    ALEXCustomView *gameView = [self gameViewWithIndex:index];
+    [gameView rotateView];
+    
 }
 
 

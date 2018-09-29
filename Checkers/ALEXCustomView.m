@@ -22,6 +22,8 @@
     image.tag = 3;
     [image setFrame:self.bounds];
     self.state = GameViewStateRed;
+    if(self.isUpsideDown)
+        image.transform = CGAffineTransformMakeRotation(M_PI);
     [self addSubview:image];
 }
 
@@ -32,6 +34,8 @@
     image.tag = 3;
     [image setFrame:self.bounds];
     self.state = GameViewStateRedKing;
+    if(self.isUpsideDown)
+        image.transform = CGAffineTransformMakeRotation(M_PI);
     [self addSubview:image];
 }
 
@@ -42,6 +46,8 @@
     image.tag = 3;
     [image setFrame:self.bounds];
     self.state = GameViewStateBlack;
+    if(self.isUpsideDown)
+        image.transform = CGAffineTransformMakeRotation(M_PI);
     [self addSubview:image];
 }
 
@@ -52,6 +58,8 @@
     image.tag = 3;
     [image setFrame:self.bounds];
     self.state = GameViewStateBlackKing;
+    if(self.isUpsideDown)
+        image.transform = CGAffineTransformMakeRotation(M_PI);
     [self addSubview:image];
 }
 
@@ -66,6 +74,17 @@
         highlightView.alpha = 0.3;
         [self addSubview:highlightView];
     }
+}
+
+-(void)rotateView
+{
+    [UIView animateWithDuration:1.5 animations:^{
+        [self viewWithTag:3].transform = CGAffineTransformMakeRotation(M_PI);
+    }];
+    if(self.isUpsideDown)
+        self.isUpsideDown = NO;
+    else
+        self.isUpsideDown = YES;
 }
 
 -(void)removeHighlighted

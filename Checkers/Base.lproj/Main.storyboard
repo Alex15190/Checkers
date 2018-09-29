@@ -59,11 +59,35 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ZC4-k6-2XR"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-wY-m5o">
+                                <rect key="frame" x="8" y="521" width="51" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Clear">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wl9-IZ-MfF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vss-zf-zWK">
+                                <rect key="frame" x="250" y="521" width="62" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Rotate">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="rotateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITp-U0-tZ5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="vss-zf-zWK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-8" id="EN2-ja-i5A"/>
+                            <constraint firstItem="NLQ-wY-m5o" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-8" id="UEJ-aa-hVf"/>
                             <constraint firstItem="ipY-P4-fJo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cHc-Wd-7JA"/>
                             <constraint firstItem="ipY-P4-fJo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gGq-0Z-6gt"/>
+                            <constraint firstItem="NLQ-wY-m5o" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="hvg-z2-hjX"/>
+                            <constraint firstItem="vss-zf-zWK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-8" id="w5v-Ow-DtZ"/>
                             <constraint firstItem="ipY-P4-fJo" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="xuT-2C-o9B"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
