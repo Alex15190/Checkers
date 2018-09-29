@@ -55,6 +55,18 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ALEXCustomView *gameView = [self gameViewWithIndex:indexPath.row];
+    if (gameView.state == GameViewStateRed)
+        [gameView spawnRedKingCheck];
+    else if (gameView.state == GameViewStateBlack)
+        [gameView spawnBlackKingCheck];
+}
+
+
+
+
 
 -(void)clearGame
 {
@@ -70,14 +82,13 @@
     [self clearGame];
     for(int i = 0; i < 4*3*2;i++) {
         ALEXCustomView *gameView = [self gameViewWithIndex:i];
-        if(CGColorEqualToColor(gameView.backgroundColor.CGColor, [UIColor colorWithRed:105.0/255 green:64.0/255 blue:11.0/255 alpha:1].CGColor))
+        if(gameView.state == GameViewStateEmpty)
         {
             [gameView spawnBlackCheck];
             ALEXCustomView *gameView2 = [self gameViewWithIndex:(8*8 - 1 - i)];
             [gameView2 spawnRedCheck];
         }
     }
-    [self rotateCollectionView];
 }
 
 -(void)rotateCollectionView

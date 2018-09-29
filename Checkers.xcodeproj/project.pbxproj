@@ -37,6 +37,7 @@
 /* Begin PBXFileReference section */
 		CE134511215F7B6900E25E12 /* ALEXCustomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALEXCustomView.h; sourceTree = "<group>"; };
 		CE134512215F7B6900E25E12 /* ALEXCustomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALEXCustomView.m; sourceTree = "<group>"; };
+		CE5248A7215F998100E2007A /* GameViewState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewState.h; sourceTree = "<group>"; };
 		CEE62AE22157AE3C009A228B /* Checkers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE62AE52157AE3C009A228B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEE62AE62157AE3C009A228B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 			children = (
 				CEE62AE52157AE3C009A228B /* AppDelegate.h */,
 				CEE62AE62157AE3C009A228B /* AppDelegate.m */,
+				CE5248A7215F998100E2007A /* GameViewState.h */,
 				CEE62AE82157AE3C009A228B /* ViewController.h */,
 				CEE62AE92157AE3C009A228B /* ViewController.m */,
 				CE134511215F7B6900E25E12 /* ALEXCustomView.h */,

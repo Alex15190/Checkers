@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameViewState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ALEXCustomView : UIView
+
+@property (nonatomic) GameViewState state;
 
 -(void)spawnRedCheck;
 -(void)spawnRedKingCheck;
 -(void)spawnBlackCheck;
 -(void)spawnBlackKingCheck;
 -(void)showAsHighlighted;
+-(void)removeHighlighted;
 -(void)clear;
 
 @end
