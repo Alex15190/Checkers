@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) GameViewState state;
 @property (nonatomic) BOOL isUpsideDown;
+@property (nonatomic) BOOL isHighlighted;
 
 -(void)spawnRedCheck;
 -(void)spawnRedKingCheck;

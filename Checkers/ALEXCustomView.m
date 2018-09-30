@@ -72,6 +72,7 @@
         highlightView.tag = 4;
         highlightView.backgroundColor = [UIColor blueColor];
         highlightView.alpha = 0.3;
+        self.isHighlighted = YES;
         [self addSubview:highlightView];
     }
 }
@@ -95,6 +96,7 @@
 -(void)removeHighlighted
 {
     [[self viewWithTag:4] removeFromSuperview];
+    self.isHighlighted = NO;
 }
 
 -(void)clear
