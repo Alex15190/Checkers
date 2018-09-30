@@ -280,7 +280,7 @@
         }
     } else {
         ALEXCustomView *gameView2 = [self gameViewWithIndex:index + step*2];
-        if (gameView2.state == GameViewStateEmpty){
+        if ((gameView2.state == GameViewStateEmpty)&&(!gameView2.isHighlighted)){
             [self.arrIndexOfDeletableObj addObject: @[@(index + step*2),@(index + step)]];
             [gameView2 showAsHighlighted];
         }
@@ -294,9 +294,9 @@
     for (NSArray *array in self.arrIndexOfDeletableObj){
         if([array[0] integerValue] == toIndex){
             [[self gameViewWithIndex:[array[1] integerValue]] clear];
-            self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
         }
     }
+    self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
     switch (gameView1.state) {
         case GameViewStateRed:
             [gameView2 spawnRedCheck];
