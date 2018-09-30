@@ -17,8 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @property (nonatomic) NSInteger latsTouchedIndex;
-@property (nonatomic) NSInteger indexToDelete;
-@property (nonatomic) NSInteger indexOfDeletableObj;
+@property (strong, nonatomic) NSMutableArray *arrIndexOfDeletableObj;
 
 @end
 
@@ -31,8 +30,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.arrayOfColors = @[@0,@1,@0,@1,@0,@1,@0,@1,@1,@0,@1,@0,@1,@0,@1,@0];
     self.latsTouchedIndex = -1;
-    self.indexToDelete = -1;
-    self.indexOfDeletableObj = -1;
+    self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
     self.isRotated = NO;
 }
 
@@ -82,8 +80,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self gameViewWithIndex:indexPath.row].isHighlighted)
+    if ([self gameViewWithIndex:indexPath.row].isHighlighted){
         [self moveToIndex:indexPath.row From:self.latsTouchedIndex];
+        [self checkForKing];
+    }
     else{
         self.latsTouchedIndex = indexPath.row;
         [self highlightCellsForStep:0 atIndex:indexPath.row];
@@ -174,20 +174,28 @@
                         [[self gameViewWithIndex:index - 7] showAsHighlighted];
                     else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
                         [self highlightCellsForStep: -7 atIndex:index];
+                    if (([self gameStateWithIndex:index + 7] == GameViewStateBlack)||([self gameStateWithIndex:index + 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: 7 atIndex:index];
                     break;
                 case GameViewStateBlack:
                     if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index + 9] showAsHighlighted];
                     else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
                         [self highlightCellsForStep: 9 atIndex:index];
+                    if (([self gameStateWithIndex:index - 9] == GameViewStateRed)||([self gameStateWithIndex:index - 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: -9 atIndex:index];
                     break;
                 case GameViewStateRedKing:
                     if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
                         [self highlightCellsForStep: -7 atIndex:index];
+                    if (([self gameStateWithIndex:index + 7] == GameViewStateBlack)||([self gameStateWithIndex:index + 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: 7 atIndex:index];
                     break;
                 case GameViewStateBlackKing:
                     if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
                         [self highlightCellsForStep: 9 atIndex:index];
+                    if (([self gameStateWithIndex:index - 9] == GameViewStateRed)||([self gameStateWithIndex:index - 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: -9 atIndex:index];
                     break;
                 case GameViewStateEmpty:
                     break;
@@ -200,13 +208,17 @@
                     if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index - 9] showAsHighlighted];
                     else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: -9 atIndex:index - 9];
+                        [self highlightCellsForStep: -9 atIndex:index];
+                    if (([self gameStateWithIndex:index + 9] == GameViewStateBlack)||([self gameStateWithIndex:index + 9] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: 9 atIndex:index];
                     break;
                 case GameViewStateBlack:
                     if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index + 7] showAsHighlighted];
                     else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
                         [self highlightCellsForStep: 7 atIndex:index];
+                    if (([self gameStateWithIndex:index - 7] == GameViewStateRed)||([self gameStateWithIndex:index - 7] == GameViewStateRedKing))
+                        [self highlightCellsForStep: -7 atIndex:index];
                     break;
                 case GameViewStateRedKing:
                     break;
@@ -226,20 +238,33 @@
                         [[self gameViewWithIndex:index - 7] showAsHighlighted];
                     else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
                         [self highlightCellsForStep: -7 atIndex:index];
+                    if (([self gameStateWithIndex:index + 7] == GameViewStateBlack)||([self gameStateWithIndex:index + 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: 7 atIndex:index];
+                    
+                    
+                    
                     if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index - 9] showAsHighlighted];
                     else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
                         [self highlightCellsForStep: -9 atIndex:index];
+                    if (([self gameStateWithIndex:index + 9] == GameViewStateBlack)||([self gameStateWithIndex:index + 9] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: 9 atIndex:index];
                     break;
                 case GameViewStateBlack:
                     if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index + 9] showAsHighlighted];
                     else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
                         [self highlightCellsForStep: 9 atIndex:index];
+                    if (([self gameStateWithIndex:index - 9] == GameViewStateRed)||([self gameStateWithIndex:index - 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: -9 atIndex:index];
+                    
+                    
                     if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
                         [[self gameViewWithIndex:index + 7] showAsHighlighted];
                     else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
                         [self highlightCellsForStep: 7 atIndex:index];
+                    if (([self gameStateWithIndex:index - 7] == GameViewStateRed)||([self gameStateWithIndex:index - 7] == GameViewStateRedKing))
+                        [self highlightCellsForStep: -7 atIndex:index];
                     break;
                 case GameViewStateRedKing:
                     break;
@@ -256,8 +281,7 @@
     } else {
         ALEXCustomView *gameView2 = [self gameViewWithIndex:index + step*2];
         if (gameView2.state == GameViewStateEmpty){
-            self.indexToDelete = index + step;
-            self.indexOfDeletableObj = index + step*2;
+            [self.arrIndexOfDeletableObj addObject: @[@(index + step*2),@(index + step)]];
             [gameView2 showAsHighlighted];
         }
     }
@@ -267,10 +291,11 @@
 {
     ALEXCustomView *gameView1 = [self gameViewWithIndex:fromIndex];
     ALEXCustomView *gameView2 = [self gameViewWithIndex:toIndex];
-    if(self.indexOfDeletableObj == toIndex){
-        [[self gameViewWithIndex:self.indexToDelete] clear];
-        self.indexToDelete = -1;
-        
+    for (NSArray *array in self.arrIndexOfDeletableObj){
+        if([array[0] integerValue] == toIndex){
+            [[self gameViewWithIndex:[array[1] integerValue]] clear];
+            self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
+        }
     }
     switch (gameView1.state) {
         case GameViewStateRed:
@@ -300,5 +325,15 @@
     }
 }
 
+-(void)checkForKing{
+    for (int i = 0; i < 8; i++){
+        ALEXCustomView *gameView1 = [self gameViewWithIndex:i];
+        ALEXCustomView *gameView2 = [self gameViewWithIndex:8*8 - 1 - i];
+        if (gameView1.state == GameViewStateRed)
+            [gameView1 spawnRedKingCheck];
+        else if (gameView2.state == GameViewStateBlack)
+            [gameView2 spawnBlackKingCheck];
+    }
+}
 
 @end
