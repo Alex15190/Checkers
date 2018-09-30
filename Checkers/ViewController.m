@@ -103,7 +103,8 @@
     }
     else{
         self.latsTouchedIndex = indexPath.row;
-        [self highlightCellsForStep:0 atIndex:indexPath.row withState:[self gameStateWithIndex:indexPath.row]];
+        [self highlightCellsAtIndex:indexPath.row withState:[self gameStateWithIndex:indexPath.row]];
+        [self checkForFutureHighlightAtIndex:indexPath.row withState:[self gameStateWithIndex:indexPath.row]];
     }
     
 }
@@ -180,125 +181,49 @@
 
 #pragma mark Game movement
 
--(void)highlightCellsForStep:(NSInteger)step atIndex:(NSInteger)index withState:(GameViewState)state
-{
-    if (!self.isRecursive)
-        [self unHighlightCells];
-    if (step == 0){
-        if (index % 8 == 0){
-            switch (state) {
-                case GameViewStateRed:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index - 7] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index - 7] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: -7 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index + 7] == GameViewStateBlack)||([self gameStateWithIndex:index + 7] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: 7 atIndex:index withState:state];
-                    break;
-                case GameViewStateBlack:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index + 9] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index + 9] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
-                        [self highlightCellsForStep: 9 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index - 9] == GameViewStateRed)||([self gameStateWithIndex:index - 9] == GameViewStateRedKing))
-                        [self highlightCellsForStep: -9 atIndex:index withState:state];
-                    break;
-                case GameViewStateRedKing:
-                    break;
-                case GameViewStateBlackKing:
-                    break;
-                case GameViewStateEmpty:
-                    break;
-                case GameViewStateUnplayable:
-                    break;
+
+-(void)highlightCellsAtIndex:(NSInteger)index withState:(GameViewState)state{
+    
+    [self unHighlightCells];
+    if (([self gameStateWithIndex:index - 9] == GameViewStateEmpty)&&(state == GameViewStateRed)){
+        [[self gameViewWithIndex:(index - 9)] showAsHighlighted];
+    }
+    if (([self gameStateWithIndex:index - 7] == GameViewStateEmpty)&&(state == GameViewStateRed)){
+        [[self gameViewWithIndex:(index - 7)] showAsHighlighted];
+    }
+    if (([self gameStateWithIndex:index + 7] == GameViewStateEmpty)&&(state == GameViewStateBlack)){
+        [[self gameViewWithIndex:(index + 7)] showAsHighlighted];
+    }
+    if (([self gameStateWithIndex:index + 9] == GameViewStateEmpty)&&(state == GameViewStateBlack)){
+        [[self gameViewWithIndex:(index + 9)] showAsHighlighted];
+    }
+}
+
+-(void)checkForFutureHighlightAtIndex:(NSInteger)index withState:(GameViewState)state{
+    GameViewState state1 = GameViewStateEmpty;
+    GameViewState state2 = GameViewStateEmpty;
+    if(state == GameViewStateRed || state == GameViewStateRedKing){
+        state1 = GameViewStateBlack;
+        state2 = GameViewStateBlackKing;
+    }
+    else if (state == GameViewStateBlack || state == GameViewStateBlackKing){
+        state1 = GameViewStateRed;
+        state2 = GameViewStateRedKing;
+    }
+    NSArray *arrOfNumbers = @[@(-9),@(-7),@(7),@(9)];
+    for (NSNumber *number in arrOfNumbers){
+        if ([self gameStateWithIndex:index + [number integerValue]] == state1 || [self gameStateWithIndex:index + [number integerValue]] == state2){
+            
+            ALEXCustomView *gameView2 = [self gameViewWithIndex:index + [number integerValue]*2];
+            if ((gameView2.state == GameViewStateEmpty)&&(!gameView2.isHighlighted)){
+                NSMutableArray *array = [[self.dictIndexOfDeletableObj objectForKey:@(index)] mutableCopy];
+                if (!array)
+                    array = [[NSMutableArray alloc] init];
+                [array addObject:@(index + [number integerValue])];
+                [self.dictIndexOfDeletableObj setObject:array forKey:@(index + 2*[number integerValue])];
+                [gameView2 showAsHighlighted];
+                [self checkForFutureHighlightAtIndex:index + 2*[number integerValue] withState:state];
             }
-        } else if (index % 8 == 7){
-            switch (state) {
-                case GameViewStateRed:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index - 9] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index - 9] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: -9 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index + 9] == GameViewStateBlack)||([self gameStateWithIndex:index + 9] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: 9 atIndex:index withState:state];
-                    break;
-                case GameViewStateBlack:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index + 7] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index + 7] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
-                        [self highlightCellsForStep: 7 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index - 7] == GameViewStateRed)||([self gameStateWithIndex:index - 7] == GameViewStateRedKing))
-                        [self highlightCellsForStep: -7 atIndex:index withState:state];
-                    break;
-                case GameViewStateRedKing:
-                    break;
-                case GameViewStateBlackKing:
-                    break;
-                case GameViewStateEmpty:
-                    [self unHighlightCells];
-                    break;
-                case GameViewStateUnplayable:
-                    [self unHighlightCells];
-                    break;
-            }
-        } else {
-            switch (state) {
-                case GameViewStateRed:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index - 7] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index - 7] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: -7 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index + 7] == GameViewStateBlack)||([self gameStateWithIndex:index + 7] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: 7 atIndex:index withState:state];
-                    
-                    
-                    
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index - 9] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index - 9] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: -9 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index + 9] == GameViewStateBlack)||([self gameStateWithIndex:index + 9] == GameViewStateBlackKing))
-                        [self highlightCellsForStep: 9 atIndex:index withState:state];
-                    break;
-                case GameViewStateBlack:
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index + 9] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index + 9] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
-                        [self highlightCellsForStep: 9 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index - 9] == GameViewStateRed)||([self gameStateWithIndex:index - 9] == GameViewStateRedKing))
-                        [self highlightCellsForStep: -9 atIndex:index withState:state];
-                    
-                    
-                    if ((!self.isRecursive)&&[self gameStateWithIndex:index + 7] == GameViewStateEmpty)
-                        [[self gameViewWithIndex:index + 7] showAsHighlighted];
-                    else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
-                        [self highlightCellsForStep: 7 atIndex:index withState:state];
-                    if (([self gameStateWithIndex:index - 7] == GameViewStateRed)||([self gameStateWithIndex:index - 7] == GameViewStateRedKing))
-                        [self highlightCellsForStep: -7 atIndex:index withState:state];
-                    break;
-                case GameViewStateRedKing:
-                    break;
-                case GameViewStateBlackKing:
-                    break;
-                case GameViewStateEmpty:
-                    [self unHighlightCells];
-                    break;
-                case GameViewStateUnplayable:
-                    [self unHighlightCells];
-                    break;
-            }
-        }
-    } else {
-        ALEXCustomView *gameView2 = [self gameViewWithIndex:index + step*2];
-        if ((gameView2.state == GameViewStateEmpty)&&(!gameView2.isHighlighted)){
-            NSMutableArray *array = [[self.dictIndexOfDeletableObj objectForKey:@(index)] mutableCopy];
-            if (!array)
-                array = [[NSMutableArray alloc] init];
-            [array addObject:@(index + step)];
-            [self.dictIndexOfDeletableObj setObject:array forKey:@(index + 2*step)];
-            [gameView2 showAsHighlighted];
-            self.isRecursive = YES;
-            [self highlightCellsForStep:0 atIndex:index + 2*step withState:state];
         }
     }
 }
