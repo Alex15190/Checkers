@@ -182,6 +182,8 @@
 
 -(void)highlightCellsForStep:(NSInteger)step atIndex:(NSInteger)index withState:(GameViewState)state
 {
+    if (!self.isRecursive)
+        [self unHighlightCells];
     if (step == 0){
         if (index % 8 == 0){
             switch (state) {
