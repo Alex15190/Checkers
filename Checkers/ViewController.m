@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @property (nonatomic) NSInteger latsTouchedIndex;
+@property (nonatomic) NSInteger indexToDelete;
+@property (nonatomic) NSInteger indexOfDeletableObj;
 
 @end
 
@@ -29,6 +31,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.arrayOfColors = @[@0,@1,@0,@1,@0,@1,@0,@1,@1,@0,@1,@0,@1,@0,@1,@0];
     self.latsTouchedIndex = -1;
+    self.indexToDelete = -1;
+    self.indexOfDeletableObj = -1;
     self.isRotated = NO;
 }
 
@@ -82,7 +86,7 @@
         [self moveToIndex:indexPath.row From:self.latsTouchedIndex];
     else{
         self.latsTouchedIndex = indexPath.row;
-        [self highlightCellsForStepAtIndex:indexPath.row];
+        [self highlightCellsForStep:0 atIndex:indexPath.row];
     }
     
 }
@@ -157,74 +161,104 @@
 
 #pragma mark Game movement
 
--(void)highlightCellsForStepAtIndex:(NSInteger)index
+-(void)highlightCellsForStep:(NSInteger)step atIndex:(NSInteger)index
 {
-    [self unHighlightCells];
-    ALEXCustomView *view = [self gameViewWithIndex:index];
-    if (index % 8 == 0){
-        switch (view.state) {
-            case GameViewStateRed:
-                if ([self gameStateWithIndex:index - 7] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index - 7] showAsHighlighted];
-                break;
-            case GameViewStateBlack:
-                if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index + 9] showAsHighlighted];
-                break;
-            case GameViewStateRedKing:
-                break;
-            case GameViewStateBlackKing:
-                break;
-            case GameViewStateEmpty:
-                break;
-            case GameViewStateUnplayable:
-                break;
-        }
-    } else if (index % 8 == 7){
-        switch (view.state) {
-            case GameViewStateRed:
-                if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index - 9] showAsHighlighted];
-                break;
-            case GameViewStateBlack:
-                if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index + 7] showAsHighlighted];
-                break;
-            case GameViewStateRedKing:
-                break;
-            case GameViewStateBlackKing:
-                break;
-            case GameViewStateEmpty:
-                [self unHighlightCells];
-                break;
-            case GameViewStateUnplayable:
-                [self unHighlightCells];
-                break;
+//    [self unHighlightCells];
+    ALEXCustomView *gameView = [self gameViewWithIndex:index];
+    if (step == 0){
+        [self unHighlightCells];
+        if (index % 8 == 0){
+            switch (gameView.state) {
+                case GameViewStateRed:
+                    if ([self gameStateWithIndex:index - 7] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index - 7] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: -7 atIndex:index];
+                    break;
+                case GameViewStateBlack:
+                    if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index + 9] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: 9 atIndex:index];
+                    break;
+                case GameViewStateRedKing:
+                    if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: -7 atIndex:index];
+                    break;
+                case GameViewStateBlackKing:
+                    if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: 9 atIndex:index];
+                    break;
+                case GameViewStateEmpty:
+                    break;
+                case GameViewStateUnplayable:
+                    break;
+            }
+        } else if (index % 8 == 7){
+            switch (gameView.state) {
+                case GameViewStateRed:
+                    if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index - 9] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: -9 atIndex:index - 9];
+                    break;
+                case GameViewStateBlack:
+                    if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index + 7] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
+                        [self highlightCellsForStep: 7 atIndex:index];
+                    break;
+                case GameViewStateRedKing:
+                    break;
+                case GameViewStateBlackKing:
+                    break;
+                case GameViewStateEmpty:
+                    [self unHighlightCells];
+                    break;
+                case GameViewStateUnplayable:
+                    [self unHighlightCells];
+                    break;
+            }
+        } else {
+            switch (gameView.state) {
+                case GameViewStateRed:
+                    if ([self gameStateWithIndex:index - 7] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index - 7] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index - 7] == GameViewStateBlack)||([self gameStateWithIndex:index - 7] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: -7 atIndex:index];
+                    if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index - 9] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index - 9] == GameViewStateBlack)||([self gameStateWithIndex:index - 9] == GameViewStateBlackKing))
+                        [self highlightCellsForStep: -9 atIndex:index];
+                    break;
+                case GameViewStateBlack:
+                    if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index + 9] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index + 9] == GameViewStateRed)||([self gameStateWithIndex:index + 9] == GameViewStateRedKing))
+                        [self highlightCellsForStep: 9 atIndex:index];
+                    if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
+                        [[self gameViewWithIndex:index + 7] showAsHighlighted];
+                    else if (([self gameStateWithIndex:index + 7] == GameViewStateRed)||([self gameStateWithIndex:index + 7] == GameViewStateRedKing))
+                        [self highlightCellsForStep: 7 atIndex:index];
+                    break;
+                case GameViewStateRedKing:
+                    break;
+                case GameViewStateBlackKing:
+                    break;
+                case GameViewStateEmpty:
+                    [self unHighlightCells];
+                    break;
+                case GameViewStateUnplayable:
+                    [self unHighlightCells];
+                    break;
+            }
         }
     } else {
-        switch (view.state) {
-            case GameViewStateRed:
-                if ([self gameStateWithIndex:index - 7] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index - 7] showAsHighlighted];
-                if ([self gameStateWithIndex:index - 9] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index - 9] showAsHighlighted];
-                break;
-            case GameViewStateBlack:
-                if ([self gameStateWithIndex:index + 9] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index + 9] showAsHighlighted];
-                if ([self gameStateWithIndex:index + 7] == GameViewStateEmpty)
-                    [[self gameViewWithIndex:index + 7] showAsHighlighted];
-                break;
-            case GameViewStateRedKing:
-                break;
-            case GameViewStateBlackKing:
-                break;
-            case GameViewStateEmpty:
-                [self unHighlightCells];
-                break;
-            case GameViewStateUnplayable:
-                [self unHighlightCells];
-                break;
+        ALEXCustomView *gameView2 = [self gameViewWithIndex:index + step*2];
+        if (gameView2.state == GameViewStateEmpty){
+            self.indexToDelete = index + step;
+            self.indexOfDeletableObj = index + step*2;
+            [gameView2 showAsHighlighted];
         }
     }
 }
@@ -233,6 +267,11 @@
 {
     ALEXCustomView *gameView1 = [self gameViewWithIndex:fromIndex];
     ALEXCustomView *gameView2 = [self gameViewWithIndex:toIndex];
+    if(self.indexOfDeletableObj == toIndex){
+        [[self gameViewWithIndex:self.indexToDelete] clear];
+        self.indexToDelete = -1;
+        
+    }
     switch (gameView1.state) {
         case GameViewStateRed:
             [gameView2 spawnRedCheck];
