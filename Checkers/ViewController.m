@@ -17,11 +17,26 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 
 @property (nonatomic) NSInteger latsTouchedIndex;
-@property (strong, nonatomic) NSMutableArray *arrIndexOfDeletableObj;
+@property (strong, nonatomic) NSMutableDictionary *dictIndexOfDeletableObj;
 
 @end
 
 @implementation ViewController
+
+/*
+ 
+- - - - -     - - m - -     - - m - -
+- b - b -     - b - b -     - b - b -
+- - - - x     - - - - x     m - - - x
+ 
+*/
+
+
+
+
+
+
+
 
 #pragma mark viewWiil/viewDid
 
@@ -30,7 +45,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.arrayOfColors = @[@0,@1,@0,@1,@0,@1,@0,@1,@1,@0,@1,@0,@1,@0,@1,@0];
     self.latsTouchedIndex = -1;
-    self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
+    self.dictIndexOfDeletableObj = [[NSMutableDictionary alloc] init];
     self.isRotated = NO;
 }
 
@@ -281,22 +296,33 @@
     } else {
         ALEXCustomView *gameView2 = [self gameViewWithIndex:index + step*2];
         if ((gameView2.state == GameViewStateEmpty)&&(!gameView2.isHighlighted)){
-            [self.arrIndexOfDeletableObj addObject: @[@(index + step*2),@(index + step)]];
+            NSMutableArray *array = [self.dictIndexOfDeletableObj objectForKey:@(index)];
+            if (!array)
+                array = [[NSMutableArray alloc] init];
+            [array addObject:@(index + step)];
+            [self.dictIndexOfDeletableObj setObject:array forKey:@(index + 2*step)];
             [gameView2 showAsHighlighted];
         }
     }
 }
 
+-(void)eatEnemyForMoveToIndex:(NSInteger)index
+{
+    NSArray *arr = self.dictIndexOfDeletableObj[@(index)];
+    for (NSNumber *number in arr){
+        [[self gameViewWithIndex:[number integerValue]] clear];
+    }
+    self.dictIndexOfDeletableObj = [[NSMutableDictionary alloc] init];
+}
+
+
 -(void)moveToIndex:(NSInteger)toIndex From:(NSInteger)fromIndex
 {
     ALEXCustomView *gameView1 = [self gameViewWithIndex:fromIndex];
     ALEXCustomView *gameView2 = [self gameViewWithIndex:toIndex];
-    for (NSArray *array in self.arrIndexOfDeletableObj){
-        if([array[0] integerValue] == toIndex){
-            [[self gameViewWithIndex:[array[1] integerValue]] clear];
-        }
-    }
-    self.arrIndexOfDeletableObj = [[NSMutableArray alloc] init];
+    
+    [self eatEnemyForMoveToIndex:toIndex];
+    
     switch (gameView1.state) {
         case GameViewStateRed:
             [gameView2 spawnRedCheck];
